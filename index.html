@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Una Flor para Ti</title>
+  <title>Girasol de Mensajes</title>
 
   <style>
     * {
@@ -18,46 +18,54 @@
       color: #fff;
       text-align: center;
       background:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.25), transparent 22%),
-        radial-gradient(circle at 80% 18%, rgba(255,120,170,0.22), transparent 32%),
-        linear-gradient(135deg, #140018 0%, #3b0b35 45%, #8b123f 100%);
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.45), transparent 25%),
+        radial-gradient(circle at 80% 18%, rgba(255, 230, 120, 0.35), transparent 32%),
+        linear-gradient(135deg, #1b1200 0%, #704600 45%, #ffb703 100%);
     }
 
-    .estrellas {
+    .cielo {
       position: fixed;
       inset: 0;
       z-index: 0;
-      opacity: 0.45;
-      background-image:
-        radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1.5px),
-        radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1.5px);
-      background-size: 55px 55px, 92px 92px;
-      background-position: 0 0, 35px 25px;
-      animation: moverEstrellas 18s linear infinite;
-    }
-
-    .bruma {
-      position: fixed;
-      inset: -80px;
-      z-index: 0;
       background:
-        radial-gradient(circle at 20% 80%, rgba(255, 64, 129, 0.22), transparent 35%),
-        radial-gradient(circle at 80% 70%, rgba(255, 193, 7, 0.12), transparent 35%),
-        radial-gradient(circle at 50% 10%, rgba(210, 80, 255, 0.22), transparent 40%);
-      filter: blur(12px);
-      animation: bruma 8s ease-in-out infinite alternate;
+        radial-gradient(circle at 15% 20%, rgba(255,255,255,0.8) 0 2px, transparent 3px),
+        radial-gradient(circle at 75% 30%, rgba(255,255,255,0.7) 0 2px, transparent 3px),
+        radial-gradient(circle at 45% 12%, rgba(255,255,255,0.6) 0 1.5px, transparent 3px),
+        radial-gradient(circle at 85% 70%, rgba(255,255,255,0.55) 0 1.5px, transparent 3px);
+      opacity: 0.5;
+      animation: brilloCielo 6s ease-in-out infinite alternate;
     }
 
-    .luna {
+    .sol {
       position: fixed;
       top: 35px;
       right: 35px;
-      width: 90px;
-      height: 90px;
+      width: 115px;
+      height: 115px;
       border-radius: 50%;
-      background: radial-gradient(circle at 35% 35%, #fff8db, #ffd7a3 58%, #c98965);
-      box-shadow: 0 0 45px rgba(255, 220, 175, 0.8);
+      background: radial-gradient(circle, #fff9c4, #ffd54f, #ff9800);
+      box-shadow: 0 0 65px rgba(255, 213, 79, 0.95);
       z-index: 1;
+      animation: solRespira 4s ease-in-out infinite;
+    }
+
+    .campo {
+      position: fixed;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      height: 155px;
+      z-index: 1;
+      background:
+        radial-gradient(circle at 8% 60%, #ffd21f 0 8px, transparent 9px),
+        radial-gradient(circle at 20% 35%, #ffe66d 0 8px, transparent 9px),
+        radial-gradient(circle at 35% 70%, #ffd21f 0 8px, transparent 9px),
+        radial-gradient(circle at 50% 45%, #ffe66d 0 8px, transparent 9px),
+        radial-gradient(circle at 66% 68%, #ffd21f 0 8px, transparent 9px),
+        radial-gradient(circle at 82% 38%, #ffe66d 0 8px, transparent 9px),
+        radial-gradient(circle at 94% 64%, #ffd21f 0 8px, transparent 9px),
+        linear-gradient(180deg, transparent, rgba(34, 139, 34, 0.65));
+      opacity: 0.95;
     }
 
     .inicio {
@@ -69,8 +77,8 @@
       justify-content: center;
       padding: 24px;
       background:
-        radial-gradient(circle at top, rgba(255,255,255,0.22), transparent 35%),
-        linear-gradient(135deg, #190018, #6b103d, #e03c75);
+        radial-gradient(circle at top, rgba(255,255,255,0.65), transparent 35%),
+        linear-gradient(135deg, #fff3b0, #ffba08, #9d5c00);
       transition: opacity 0.8s ease, transform 0.8s ease;
     }
 
@@ -83,28 +91,29 @@
     .caja-inicio,
     .tarjeta {
       width: 100%;
-      max-width: 510px;
+      max-width: 520px;
       padding: 34px 24px;
       border-radius: 36px;
-      background: rgba(255, 255, 255, 0.14);
-      border: 1px solid rgba(255, 255, 255, 0.36);
+      background: rgba(255, 255, 255, 0.22);
+      border: 1px solid rgba(255, 255, 255, 0.55);
       backdrop-filter: blur(18px);
       box-shadow:
-        0 30px 85px rgba(0,0,0,0.48),
-        inset 0 0 28px rgba(255,255,255,0.12);
+        0 30px 85px rgba(68, 40, 0, 0.42),
+        inset 0 0 28px rgba(255,255,255,0.18);
     }
 
     .caja-inicio h1 {
       margin: 0 0 14px;
       font-size: 38px;
-      text-shadow: 0 4px 18px rgba(0,0,0,0.4);
+      color: #5c3800;
+      text-shadow: 0 4px 14px rgba(255,255,255,0.65);
     }
 
     .caja-inicio p {
       margin: 0;
       font-size: 18px;
       line-height: 1.6;
-      color: #ffe5f1;
+      color: #4a3000;
     }
 
     button {
@@ -112,18 +121,18 @@
       padding: 16px 36px;
       border: none;
       border-radius: 40px;
-      background: linear-gradient(135deg, #ffffff, #ffd4e9);
-      color: #a01459;
+      background: linear-gradient(135deg, #fffdf0, #fff3a3);
+      color: #a76500;
       font-size: 18px;
       font-weight: 900;
       cursor: pointer;
-      box-shadow: 0 16px 35px rgba(0,0,0,0.35);
+      box-shadow: 0 16px 35px rgba(68, 40, 0, 0.3);
       transition: 0.3s;
     }
 
     button:hover {
       transform: translateY(-3px) scale(1.04);
-      box-shadow: 0 20px 45px rgba(0,0,0,0.45);
+      box-shadow: 0 20px 45px rgba(68, 40, 0, 0.42);
     }
 
     .contenido {
@@ -148,64 +157,65 @@
       inset: -80px;
       z-index: -1;
       background:
-        radial-gradient(circle at 20% 15%, rgba(255,255,255,0.22), transparent 25%),
-        radial-gradient(circle at 80% 5%, rgba(255,190,215,0.32), transparent 30%),
-        radial-gradient(circle at 50% 100%, rgba(255,255,255,0.13), transparent 35%);
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,0.35), transparent 25%),
+        radial-gradient(circle at 80% 5%, rgba(255,235,130,0.35), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(255,255,255,0.15), transparent 35%);
     }
 
     h2 {
       margin: 0 0 6px;
       font-size: 35px;
-      text-shadow: 0 4px 16px rgba(0,0,0,0.42);
+      color: #fff8dc;
+      text-shadow: 0 4px 16px rgba(84, 50, 0, 0.52);
     }
 
     .subtitulo {
       margin: 0 0 6px;
-      color: #ffe2ef;
+      color: #fff4bf;
       font-size: 16px;
     }
 
     .instruccion {
       margin: 8px 0 0;
-      color: #ffd6e9;
+      color: #fff7d6;
       font-size: 14px;
       opacity: 0.95;
     }
 
-    .escena-rosa {
-      width: 340px;
-      height: 400px;
+    .escena-girasol {
+      width: 350px;
+      height: 410px;
       margin: 0 auto;
       position: relative;
     }
 
-    .rosa {
+    .girasol {
       position: absolute;
-      width: 250px;
-      height: 250px;
-      left: 45px;
-      top: 15px;
-      filter: drop-shadow(0 24px 18px rgba(0,0,0,0.35));
+      width: 270px;
+      height: 270px;
+      left: 40px;
+      top: 8px;
+      filter: drop-shadow(0 25px 18px rgba(72, 42, 0, 0.32));
       animation: respirar 3.5s infinite ease-in-out;
     }
 
     .petalo {
       position: absolute;
-      width: 92px;
-      height: 142px;
-      left: 79px;
+      width: 78px;
+      height: 145px;
+      left: 96px;
       top: 0;
       border: none;
       cursor: pointer;
-      border-radius: 90% 90% 42% 42%;
-      transform-origin: 46px 116px;
+      border-radius: 90% 90% 45% 45%;
+      transform-origin: 39px 132px;
       background:
-        radial-gradient(circle at 35% 18%, rgba(255,255,255,0.92), transparent 24%),
-        linear-gradient(180deg, #ffd3e4 0%, #ff4b8b 45%, #a5003d 100%);
+        radial-gradient(circle at 35% 18%, rgba(255,255,255,0.75), transparent 24%),
+        linear-gradient(180deg, #fff7a3 0%, #ffd21f 45%, #f59f00 100%);
       box-shadow:
         inset 0 10px 17px rgba(255,255,255,0.35),
-        0 8px 14px rgba(0,0,0,0.2);
-      transition: transform 0.25s ease, filter 0.25s ease;
+        0 8px 14px rgba(75, 42, 0, 0.2);
+      transition: opacity 0.45s ease, transform 0.45s ease, filter 0.25s ease;
       color: transparent;
       font-size: 0;
       padding: 0;
@@ -215,37 +225,74 @@
       filter: brightness(1.15);
     }
 
-    .petalo.activo {
-      filter: brightness(1.28) drop-shadow(0 0 12px rgba(255,255,255,0.8));
+    .petalo.quitado {
+      opacity: 0;
+      pointer-events: none;
     }
 
     .petalo:nth-child(1) { transform: rotate(0deg); }
-    .petalo:nth-child(2) { transform: rotate(30deg); }
-    .petalo:nth-child(3) { transform: rotate(60deg); }
-    .petalo:nth-child(4) { transform: rotate(90deg); }
-    .petalo:nth-child(5) { transform: rotate(120deg); }
-    .petalo:nth-child(6) { transform: rotate(150deg); }
-    .petalo:nth-child(7) { transform: rotate(180deg); }
-    .petalo:nth-child(8) { transform: rotate(210deg); }
-    .petalo:nth-child(9) { transform: rotate(240deg); }
-    .petalo:nth-child(10) { transform: rotate(270deg); }
-    .petalo:nth-child(11) { transform: rotate(300deg); }
-    .petalo:nth-child(12) { transform: rotate(330deg); }
+    .petalo:nth-child(2) { transform: rotate(24deg); }
+    .petalo:nth-child(3) { transform: rotate(48deg); }
+    .petalo:nth-child(4) { transform: rotate(72deg); }
+    .petalo:nth-child(5) { transform: rotate(96deg); }
+    .petalo:nth-child(6) { transform: rotate(120deg); }
+    .petalo:nth-child(7) { transform: rotate(144deg); }
+    .petalo:nth-child(8) { transform: rotate(168deg); }
+    .petalo:nth-child(9) { transform: rotate(192deg); }
+    .petalo:nth-child(10) { transform: rotate(216deg); }
+    .petalo:nth-child(11) { transform: rotate(240deg); }
+    .petalo:nth-child(12) { transform: rotate(264deg); }
+    .petalo:nth-child(13) { transform: rotate(288deg); }
+    .petalo:nth-child(14) { transform: rotate(312deg); }
+    .petalo:nth-child(15) { transform: rotate(336deg); }
+
+    .petalo:nth-child(1).quitado { transform: rotate(0deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(2).quitado { transform: rotate(24deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(3).quitado { transform: rotate(48deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(4).quitado { transform: rotate(72deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(5).quitado { transform: rotate(96deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(6).quitado { transform: rotate(120deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(7).quitado { transform: rotate(144deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(8).quitado { transform: rotate(168deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(9).quitado { transform: rotate(192deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(10).quitado { transform: rotate(216deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(11).quitado { transform: rotate(240deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(12).quitado { transform: rotate(264deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(13).quitado { transform: rotate(288deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(14).quitado { transform: rotate(312deg) translateY(-45px) scale(0.5); }
+    .petalo:nth-child(15).quitado { transform: rotate(336deg) translateY(-45px) scale(0.5); }
 
     .centro {
       position: absolute;
-      width: 78px;
-      height: 78px;
-      left: 86px;
-      top: 103px;
+      width: 105px;
+      height: 105px;
+      left: 82px;
+      top: 107px;
       border-radius: 50%;
       z-index: 8;
       background:
-        radial-gradient(circle at 35% 35%, #fff3a2, #ffad33 60%, #9b5100 100%);
+        radial-gradient(circle at 30% 30%, #9b5a00, #5c2e00 62%, #2f1600 100%);
       box-shadow:
-        0 0 30px rgba(255, 210, 90, 0.95),
-        inset 0 0 12px rgba(255,255,255,0.45);
+        0 0 35px rgba(255, 210, 60, 0.95),
+        inset 0 0 16px rgba(255,210,80,0.35);
       pointer-events: none;
+    }
+
+    .centro::before {
+      content: "";
+      position: absolute;
+      inset: 12px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at 20% 20%, #ffd35a 0 3px, transparent 4px),
+        radial-gradient(circle at 50% 20%, #ffd35a 0 3px, transparent 4px),
+        radial-gradient(circle at 80% 25%, #ffd35a 0 3px, transparent 4px),
+        radial-gradient(circle at 35% 50%, #ffd35a 0 3px, transparent 4px),
+        radial-gradient(circle at 68% 55%, #ffd35a 0 3px, transparent 4px),
+        radial-gradient(circle at 25% 78%, #ffd35a 0 3px, transparent 4px),
+        radial-gradient(circle at 55% 82%, #ffd35a 0 3px, transparent 4px),
+        radial-gradient(circle at 82% 78%, #ffd35a 0 3px, transparent 4px);
+      opacity: 0.9;
     }
 
     .centro::after {
@@ -254,15 +301,15 @@
       inset: 0;
       display: grid;
       place-items: center;
-      font-size: 28px;
+      font-size: 32px;
     }
 
     .tallo {
       position: absolute;
-      width: 15px;
+      width: 17px;
       height: 175px;
-      left: 163px;
-      top: 228px;
+      left: 167px;
+      top: 245px;
       border-radius: 20px;
       background: linear-gradient(180deg, #7df08b, #168b34);
       box-shadow: inset 3px 0 6px rgba(255,255,255,0.32);
@@ -271,9 +318,9 @@
 
     .hoja {
       position: absolute;
-      width: 95px;
-      height: 48px;
-      top: 310px;
+      width: 100px;
+      height: 50px;
+      top: 326px;
       background:
         radial-gradient(circle at 35% 35%, rgba(255,255,255,0.44), transparent 25%),
         linear-gradient(135deg, #86f58b, #168b34);
@@ -287,39 +334,39 @@
     }
 
     .hoja.der {
-      right: 68px;
+      right: 70px;
       transform: rotate(205deg);
     }
 
     .mensaje-box {
-      min-height: 88px;
+      min-height: 90px;
       margin: 4px auto 8px;
-      padding: 16px 16px;
-      max-width: 410px;
+      padding: 16px;
+      max-width: 420px;
       border-radius: 24px;
-      background: rgba(255,255,255,0.17);
-      border: 1px solid rgba(255,255,255,0.30);
+      background: rgba(255,255,255,0.18);
+      border: 1px solid rgba(255,255,255,0.32);
       box-shadow: inset 0 0 20px rgba(255,255,255,0.08);
       display: flex;
       align-items: center;
       justify-content: center;
-      color: #fff2f8;
+      color: #fff8dc;
       font-size: 18px;
       line-height: 1.45;
-      font-weight: 700;
-      text-shadow: 0 3px 12px rgba(0,0,0,0.35);
+      font-weight: 800;
+      text-shadow: 0 3px 12px rgba(64, 38, 0, 0.42);
       animation: suave 0.4s ease;
     }
 
     .contador {
       font-size: 13px;
-      color: #ffd6e8;
-      opacity: 0.9;
+      color: #fff4bf;
+      opacity: 0.95;
     }
 
     .nota {
       margin-top: 10px;
-      color: #ffd6ea;
+      color: #fff4bf;
       opacity: 0.85;
       font-size: 13px;
     }
@@ -344,17 +391,6 @@
       pointer-events: none;
     }
 
-    .particula {
-      position: fixed;
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: rgba(255,255,255,0.9);
-      box-shadow: 0 0 14px rgba(255,255,255,0.95);
-      z-index: 2;
-      animation: chispa 6s linear infinite;
-    }
-
     #player {
       position: absolute;
       left: -9999px;
@@ -375,7 +411,7 @@
 
     @keyframes respirar {
       0%, 100% { transform: scale(1) rotate(0deg); }
-      50% { transform: scale(1.05) rotate(2deg); }
+      50% { transform: scale(1.04) rotate(2deg); }
     }
 
     @keyframes subir {
@@ -390,26 +426,20 @@
       100% { transform: translateY(112vh) translateX(70px) rotate(360deg); opacity: 0; }
     }
 
-    @keyframes chispa {
-      0% { transform: translateY(105vh) scale(0.6); opacity: 0; }
-      20% { opacity: 1; }
-      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    @keyframes brilloCielo {
+      from { opacity: 0.35; }
+      to { opacity: 0.65; }
     }
 
-    @keyframes moverEstrellas {
-      from { background-position: 0 0, 35px 25px; }
-      to { background-position: 120px 120px, 185px 145px; }
-    }
-
-    @keyframes bruma {
-      from { transform: scale(1) rotate(0deg); opacity: 0.75; }
-      to { transform: scale(1.08) rotate(3deg); opacity: 1; }
+    @keyframes solRespira {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.06); }
     }
 
     @media (max-width: 480px) {
-      .luna {
-        width: 70px;
-        height: 70px;
+      .sol {
+        width: 78px;
+        height: 78px;
         top: 24px;
         right: 20px;
       }
@@ -424,10 +454,10 @@
         font-size: 30px;
       }
 
-      .escena-rosa {
-        transform: scale(0.88);
-        margin-top: -20px;
-        margin-bottom: -42px;
+      .escena-girasol {
+        transform: scale(0.86);
+        margin-top: -25px;
+        margin-bottom: -48px;
       }
 
       .mensaje-box {
@@ -440,23 +470,16 @@
 
 <body>
 
-  <div class="estrellas"></div>
-  <div class="bruma"></div>
-  <div class="luna"></div>
-
-  <div class="particula" style="left: 10%; animation-delay: 0s;"></div>
-  <div class="particula" style="left: 25%; animation-delay: 2s;"></div>
-  <div class="particula" style="left: 42%; animation-delay: 4s;"></div>
-  <div class="particula" style="left: 61%; animation-delay: 1s;"></div>
-  <div class="particula" style="left: 78%; animation-delay: 3s;"></div>
-  <div class="particula" style="left: 92%; animation-delay: 5s;"></div>
+  <div class="cielo"></div>
+  <div class="sol"></div>
+  <div class="campo"></div>
 
   <div class="inicio" id="inicio">
     <div class="caja-inicio">
-      <h1>🌹 Tienes una rosa especial 🌹</h1>
+      <h1>🌻 Tienes un girasol especial 🌻</h1>
       <p>
         Cada pétalo guarda un mensaje para ti.
-        Abre el regalo, toca los pétalos y deja que la música acompañe este detalle.
+        Toca los pétalos uno por uno hasta que el girasol se quede sin pétalos.
       </p>
       <button onclick="abrirRegalo()">Abrir regalo</button>
     </div>
@@ -464,23 +487,27 @@
 
   <main class="contenido" id="contenido">
     <section class="tarjeta">
-      <h2>🌹 Una Flor para Ti 🌹</h2>
-      <p class="subtitulo">Toca cada pétalo y descubre un mensaje</p>
+      <h2>🌻 Girasol de mensajes 🌻</h2>
+      <p class="subtitulo">Toca cada pétalo y descubre algo bonito</p>
+      <p class="instruccion">Cada pétalo que toques desaparecerá ✨</p>
 
-      <div class="escena-rosa">
-        <div class="rosa" id="rosa">
-          <button class="petalo" onclick="mostrarMensaje(0, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(1, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(2, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(3, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(4, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(5, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(6, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(7, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(8, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(9, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(10, this)"></button>
-          <button class="petalo" onclick="mostrarMensaje(11, this)"></button>
+      <div class="escena-girasol">
+        <div class="girasol" id="girasol">
+          <button class="petalo" onclick="quitarPetalo(0, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(1, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(2, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(3, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(4, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(5, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(6, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(7, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(8, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(9, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(10, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(11, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(12, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(13, this)"></button>
+          <button class="petalo" onclick="quitarPetalo(14, this)"></button>
           <div class="centro"></div>
         </div>
 
@@ -490,11 +517,11 @@
       </div>
 
       <div class="mensaje-box" id="mensajeBox">
-        Toca un pétalo de la rosa para abrir un mensaje 💌
+        Toca un pétalo del girasol para abrir un mensaje 💌
       </div>
 
       <div class="contador" id="contador">
-        Mensajes descubiertos: 0 de 12
+        Pétalos restantes: 15
       </div>
 
       <p class="nota">
@@ -505,36 +532,39 @@
     </section>
   </main>
 
-  <div class="petalo-caida" style="left: 7%; animation-delay: 0s;">🌸</div>
-  <div class="petalo-caida" style="left: 20%; animation-delay: 3s;">🌺</div>
-  <div class="petalo-caida" style="left: 35%; animation-delay: 1s;">🌸</div>
-  <div class="petalo-caida" style="left: 55%; animation-delay: 4s;">🌺</div>
-  <div class="petalo-caida" style="left: 72%; animation-delay: 2s;">🌸</div>
-  <div class="petalo-caida" style="left: 90%; animation-delay: 5s;">🌺</div>
+  <div class="petalo-caida" style="left: 7%; animation-delay: 0s;">🌻</div>
+  <div class="petalo-caida" style="left: 20%; animation-delay: 3s;">🌼</div>
+  <div class="petalo-caida" style="left: 35%; animation-delay: 1s;">💛</div>
+  <div class="petalo-caida" style="left: 55%; animation-delay: 4s;">🌻</div>
+  <div class="petalo-caida" style="left: 72%; animation-delay: 2s;">🌼</div>
+  <div class="petalo-caida" style="left: 90%; animation-delay: 5s;">💛</div>
 
-  <div class="flotante" style="left: 12%; animation-delay: 0s;">💖</div>
+  <div class="flotante" style="left: 12%; animation-delay: 0s;">💛</div>
   <div class="flotante" style="left: 28%; animation-delay: 2s;">✨</div>
-  <div class="flotante" style="left: 46%; animation-delay: 4s;">🌹</div>
-  <div class="flotante" style="left: 65%; animation-delay: 1s;">💗</div>
-  <div class="flotante" style="left: 82%; animation-delay: 3s;">💕</div>
+  <div class="flotante" style="left: 46%; animation-delay: 4s;">🌻</div>
+  <div class="flotante" style="left: 65%; animation-delay: 1s;">🌼</div>
+  <div class="flotante" style="left: 82%; animation-delay: 3s;">💛</div>
 
   <script>
     const mensajes = [
-      "Eres una persona muy especial, de esas que iluminan sin darse cuenta 💖",
-      "Gracias por existir y por dejar una huella bonita en este mundo 🌹",
-      "Nunca olvides que mereces amor, paz y momentos hermosos ✨",
-      "Tu sonrisa puede cambiar un día completo, incluso sin darte cuenta 😊",
-      "Que la vida te devuelva todo lo bonito que das con el corazón 💌",
-      "Eres fuerte, valiosa y capaz de superar cualquier momento difícil 🌙",
-      "Este pétalo guarda un abrazo sincero, de esos que llegan al alma 🤍",
-      "No te rindas: incluso las flores más bellas también crecieron bajo lluvia 🌧️🌸",
-      "Ojalá hoy recuerdes lo mucho que vales y lo importante que eres 💗",
-      "Hay personas que son como flores: hacen más bonito el lugar donde están 🌺",
-      "Que esta canción y esta rosa te acompañen con mucho cariño 🎶",
-      "Último pétalo: gracias por ser tú, única, bonita y especial 🌹✨"
+      "Primer pétalo: eres una persona que ilumina como el sol de la mañana 💛",
+      "Segundo pétalo: nunca olvides que tu presencia puede alegrar un día entero 🌻",
+      "Tercer pétalo: mereces cosas bonitas, sinceras y llenas de paz ✨",
+      "Cuarto pétalo: tu sonrisa tiene una luz que no se compara con nada 😊",
+      "Quinto pétalo: que la vida te abrace con momentos hermosos 💌",
+      "Sexto pétalo: eres fuerte, valiosa y capaz de superar cualquier dificultad 🌞",
+      "Séptimo pétalo: incluso en días nublados, sigues teniendo luz propia 🌼",
+      "Octavo pétalo: no te rindas, las flores también crecen después de la lluvia 🌧️🌻",
+      "Noveno pétalo: ojalá hoy recuerdes todo lo que vales 💗",
+      "Décimo pétalo: gracias por ser una persona tan especial en este mundo 💛",
+      "Pétalo once: este girasol guarda un abrazo sincero para ti 🤍",
+      "Pétalo doce: que esta canción te acompañe con mucho cariño 🎶",
+      "Pétalo trece: eres como un girasol, siempre buscando la luz 🌞",
+      "Pétalo catorce: deseo que nunca pierdas esa forma bonita de brillar ✨",
+      "Último pétalo: este girasol completo fue hecho para recordarte lo especial que eres 🌻💛"
     ];
 
-    const descubiertos = new Set();
+    let petalosRestantes = 15;
 
     function abrirRegalo() {
       const inicio = document.getElementById("inicio");
@@ -559,25 +589,29 @@
       `;
     }
 
-    function mostrarMensaje(numero, petalo) {
+    function quitarPetalo(numero, petalo) {
       const caja = document.getElementById("mensajeBox");
       const contador = document.getElementById("contador");
+
+      if (petalo.classList.contains("quitado")) {
+        return;
+      }
+
+      petalo.classList.add("quitado");
+      petalosRestantes--;
 
       caja.style.animation = "none";
       void caja.offsetWidth;
       caja.style.animation = "suave 0.4s ease";
 
       caja.innerHTML = mensajes[numero];
+      contador.innerHTML = "Pétalos restantes: " + petalosRestantes;
 
-      petalo.classList.add("activo");
-      descubiertos.add(numero);
-
-      contador.innerHTML = "Mensajes descubiertos: " + descubiertos.size + " de 12";
-
-      if (descubiertos.size === 12) {
+      if (petalosRestantes === 0) {
         setTimeout(() => {
-          caja.innerHTML = "Descubriste todos los pétalos. Esta rosa completa es para ti 🌹💖";
-        }, 600);
+          caja.innerHTML = "El girasol se quedó sin pétalos, pero el mensaje más importante queda en el centro: eres especial, valiosa y mereces ser feliz 🌻💛";
+          contador.innerHTML = "Todos los pétalos fueron descubiertos 💛";
+        }, 700);
       }
     }
   </script>
