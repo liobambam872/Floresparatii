@@ -3,7 +3,8 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Mensaje para ti</title>
+
+  <title>Regalo Digital</title>
 
   <style>
     * {
@@ -15,15 +16,15 @@
       min-height: 100vh;
       font-family: "Segoe UI", Arial, sans-serif;
       overflow: hidden;
-      color: #fff;
       text-align: center;
+      color: white;
       background:
-        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.45), transparent 25%),
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.55), transparent 25%),
         radial-gradient(circle at 80% 18%, rgba(255, 230, 120, 0.35), transparent 32%),
         linear-gradient(135deg, #1b1200 0%, #704600 45%, #ffb703 100%);
     }
 
-    .cielo {
+    .fondo-brillo {
       position: fixed;
       inset: 0;
       z-index: 0;
@@ -33,7 +34,7 @@
         radial-gradient(circle at 45% 12%, rgba(255,255,255,0.6) 0 1.5px, transparent 3px),
         radial-gradient(circle at 85% 70%, rgba(255,255,255,0.55) 0 1.5px, transparent 3px);
       opacity: 0.5;
-      animation: brilloCielo 6s ease-in-out infinite alternate;
+      animation: brilloFondo 6s ease-in-out infinite alternate;
     }
 
     .sol {
@@ -65,7 +66,6 @@
         radial-gradient(circle at 82% 38%, #ffe66d 0 8px, transparent 9px),
         radial-gradient(circle at 94% 64%, #ffd21f 0 8px, transparent 9px),
         linear-gradient(180deg, transparent, rgba(34, 139, 34, 0.65));
-      opacity: 0.95;
     }
 
     .inicio {
@@ -91,7 +91,7 @@
     .caja-inicio,
     .tarjeta {
       width: 100%;
-      max-width: 520px;
+      max-width: 530px;
       padding: 34px 24px;
       border-radius: 36px;
       background: rgba(255, 255, 255, 0.22);
@@ -381,16 +381,6 @@
       pointer-events: none;
     }
 
-    .petalo-caida {
-      position: fixed;
-      top: -60px;
-      z-index: 4;
-      font-size: 30px;
-      animation: caer 10s linear infinite;
-      opacity: 0.86;
-      pointer-events: none;
-    }
-
     #player {
       position: absolute;
       left: -9999px;
@@ -420,13 +410,7 @@
       100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
     }
 
-    @keyframes caer {
-      0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
-      15% { opacity: 1; }
-      100% { transform: translateY(112vh) translateX(70px) rotate(360deg); opacity: 0; }
-    }
-
-    @keyframes brilloCielo {
+    @keyframes brilloFondo {
       from { opacity: 0.35; }
       to { opacity: 0.65; }
     }
@@ -470,26 +454,23 @@
 
 <body>
 
-  <div class="cielo"></div>
+  <div class="fondo-brillo"></div>
   <div class="sol"></div>
   <div class="campo"></div>
 
   <div class="inicio" id="inicio">
     <div class="caja-inicio">
-      <h1>🌻 Tienes un girasol especial 🌻</h1>
-      <p>
-        Cada pétalo guarda un mensaje para ti.
-        Toca los pétalos uno por uno hasta que el girasol se quede sin pétalos.
-      </p>
-      <button onclick="abrirRegalo()">Abrir regalo</button>
+      <h1 id="tituloInicio"></h1>
+      <p id="mensajeInicio"></p>
+      <button onclick="abrirRegalo()" id="textoBoton"></button>
     </div>
   </div>
 
   <main class="contenido" id="contenido">
     <section class="tarjeta">
-      <h2>🌻 Un Gran Girasol para ti 🌻</h2>
-      <p class="subtitulo">Toca cada pétalo y descubre algo bonito</p>
-      <p class="instruccion">Cada pétalo que toques desaparecerá ✨</p>
+      <h2 id="tituloPrincipal"></h2>
+      <p class="subtitulo" id="subtituloPrincipal"></p>
+      <p class="instruccion" id="instruccion"></p>
 
       <div class="escena-girasol">
         <div class="girasol" id="girasol">
@@ -516,28 +497,15 @@
         <div class="hoja der"></div>
       </div>
 
-      <div class="mensaje-box" id="mensajeBox">
-        Toca un pétalo del girasol para abrir un mensaje 💌
-      </div>
+      <div class="mensaje-box" id="mensajeBox"></div>
 
-      <div class="contador" id="contador">
-        Pétalos restantes: 15
-      </div>
+      <div class="contador" id="contador"></div>
 
-      <p class="nota">
-        La música empieza después de tocar “Abrir regalo”.
-      </p>
+      <p class="nota" id="notaMusica"></p>
 
       <div id="player"></div>
     </section>
   </main>
-
-  <div class="petalo-caida" style="left: 7%; animation-delay: 0s;">🌻</div>
-  <div class="petalo-caida" style="left: 20%; animation-delay: 3s;">🌼</div>
-  <div class="petalo-caida" style="left: 35%; animation-delay: 1s;">💛</div>
-  <div class="petalo-caida" style="left: 55%; animation-delay: 4s;">🌻</div>
-  <div class="petalo-caida" style="left: 72%; animation-delay: 2s;">🌼</div>
-  <div class="petalo-caida" style="left: 90%; animation-delay: 5s;">💛</div>
 
   <div class="flotante" style="left: 12%; animation-delay: 0s;">💛</div>
   <div class="flotante" style="left: 28%; animation-delay: 2s;">✨</div>
@@ -546,25 +514,84 @@
   <div class="flotante" style="left: 82%; animation-delay: 3s;">💛</div>
 
   <script>
-    const mensajes = [
-      "Primer pétalo: eres una persona que ilumina como el sol de la mañana 💛",
-      "Segundo pétalo: nunca olvides que tu presencia puede alegrar un día entero 🌻",
-      "Tercer pétalo: mereces cosas bonitas, sinceras y llenas de paz ✨",
-      "Cuarto pétalo: tu sonrisa tiene una luz que no se compara con nada 😊",
-      "Quinto pétalo: que la vida te abrace con momentos hermosos 💌",
-      "Sexto pétalo: eres fuerte, valiosa y capaz de superar cualquier dificultad 🌞",
-      "Séptimo pétalo: incluso en días nublados, sigues teniendo luz propia 🌼",
-      "Octavo pétalo: no te rindas, las flores también crecen después de la lluvia 🌧️🌻",
-      "Noveno pétalo: ojalá hoy recuerdes todo lo que vales 💗",
-      "Décimo pétalo: gracias por ser una persona tan especial en este mundo 💛",
-      "Pétalo once: este girasol guarda un abrazo sincero para ti 🤍",
-      "Pétalo doce: que esta canción te acompañe con mucho cariño 🎶",
-      "Pétalo trece: eres como un girasol, siempre buscando la luz 🌞",
-      "Pétalo catorce: deseo que nunca pierdas esa forma bonita de brillar ✨",
-      "Último pétalo: este girasol completo fue hecho para recordarte lo especial que eres 🌻💛"
-    ];
+    /*
+      =====================================================
+      EDITA SOLO ESTA PARTE
+      Aquí puedes cambiar título, mensajes y música.
+      =====================================================
+    */
 
-    let petalosRestantes = 15;
+    const CONFIGURACION_DEL_REGALO = {
+      tituloPestana: "Girasol de Mensajes",
+
+      tituloInicio: "🌻 Tienes un girasol especial 🌻",
+      mensajeInicio: "Cada pétalo guarda un mensaje para ti. Toca los pétalos uno por uno hasta descubrirlos todos.",
+      textoBoton: "Abrir regalo",
+
+      tituloPrincipal: "🌻 Girasol de mensajes 🌻",
+      subtituloPrincipal: "Toca cada pétalo y descubre algo bonito",
+      instruccion: "Cada pétalo que toques desaparecerá ✨",
+
+      mensajeAntesDeTocar: "Toca un pétalo del girasol para abrir un mensaje 💌",
+      textoContador: "Pétalos restantes:",
+      notaMusica: "La música empieza después de tocar “Abrir regalo”.",
+
+      mensajeFinal: "El girasol se quedó sin pétalos, pero el mensaje más importante queda en el centro: eres especial, valiosa y mereces ser feliz 🌻💛",
+      contadorFinal: "Todos los pétalos fueron descubiertos 💛",
+
+      /*
+        Para cambiar la música:
+        1. Abre un video de YouTube.
+        2. Copia el ID del video.
+
+        Ejemplo:
+        https://www.youtube.com/watch?v=pdKILFIqpUE
+
+        El ID es:
+        pdKILFIqpUE
+      */
+      youtubeVideoID: "pdKILFIqpUE",
+
+      mensajesPetalos: [
+        "Primer pétalo: eres una persona que ilumina como el sol de la mañana 💛",
+        "Segundo pétalo: nunca olvides que tu presencia puede alegrar un día entero 🌻",
+        "Tercer pétalo: mereces cosas bonitas, sinceras y llenas de paz ✨",
+        "Cuarto pétalo: tu sonrisa tiene una luz que no se compara con nada 😊",
+        "Quinto pétalo: que la vida te abrace con momentos hermosos 💌",
+        "Sexto pétalo: eres fuerte, valiosa y capaz de superar cualquier dificultad 🌞",
+        "Séptimo pétalo: incluso en días nublados, sigues teniendo luz propia 🌼",
+        "Octavo pétalo: no te rindas, las flores también crecen después de la lluvia 🌧️🌻",
+        "Noveno pétalo: ojalá hoy recuerdes todo lo que vales 💗",
+        "Décimo pétalo: gracias por ser una persona tan especial en este mundo 💛",
+        "Pétalo once: este girasol guarda un abrazo sincero para ti 🤍",
+        "Pétalo doce: que esta canción te acompañe con mucho cariño 🎶",
+        "Pétalo trece: eres como un girasol, siempre buscando la luz 🌞",
+        "Pétalo catorce: deseo que nunca pierdas esa forma bonita de brillar ✨",
+        "Último pétalo: este girasol completo fue hecho para recordarte lo especial que eres 🌻💛"
+      ]
+    };
+
+    /*
+      =====================================================
+      DESDE AQUÍ YA NO NECESITAS MODIFICAR NADA
+      =====================================================
+    */
+
+    let petalosRestantes = CONFIGURACION_DEL_REGALO.mensajesPetalos.length;
+
+    document.title = CONFIGURACION_DEL_REGALO.tituloPestana;
+
+    document.getElementById("tituloInicio").innerHTML = CONFIGURACION_DEL_REGALO.tituloInicio;
+    document.getElementById("mensajeInicio").innerHTML = CONFIGURACION_DEL_REGALO.mensajeInicio;
+    document.getElementById("textoBoton").innerHTML = CONFIGURACION_DEL_REGALO.textoBoton;
+
+    document.getElementById("tituloPrincipal").innerHTML = CONFIGURACION_DEL_REGALO.tituloPrincipal;
+    document.getElementById("subtituloPrincipal").innerHTML = CONFIGURACION_DEL_REGALO.subtituloPrincipal;
+    document.getElementById("instruccion").innerHTML = CONFIGURACION_DEL_REGALO.instruccion;
+    document.getElementById("mensajeBox").innerHTML = CONFIGURACION_DEL_REGALO.mensajeAntesDeTocar;
+    document.getElementById("notaMusica").innerHTML = CONFIGURACION_DEL_REGALO.notaMusica;
+
+    actualizarContador();
 
     function abrirRegalo() {
       const inicio = document.getElementById("inicio");
@@ -577,12 +604,14 @@
         contenido.style.display = "flex";
       }, 700);
 
+      const videoID = CONFIGURACION_DEL_REGALO.youtubeVideoID;
+
       document.getElementById("player").innerHTML = `
         <iframe
           width="1"
           height="1"
-          src="https://www.youtube.com/embed/pdKILFIqpUE?autoplay=1&loop=1&playlist=pdKILFIqpUE"
-          title="Juanes - Una Flor"
+          src="https://www.youtube.com/embed/${videoID}?autoplay=1&loop=1&playlist=${videoID}"
+          title="Música de fondo"
           frameborder="0"
           allow="autoplay; encrypted-media">
         </iframe>
@@ -591,7 +620,6 @@
 
     function quitarPetalo(numero, petalo) {
       const caja = document.getElementById("mensajeBox");
-      const contador = document.getElementById("contador");
 
       if (petalo.classList.contains("quitado")) {
         return;
@@ -604,15 +632,21 @@
       void caja.offsetWidth;
       caja.style.animation = "suave 0.4s ease";
 
-      caja.innerHTML = mensajes[numero];
-      contador.innerHTML = "Pétalos restantes: " + petalosRestantes;
+      caja.innerHTML = CONFIGURACION_DEL_REGALO.mensajesPetalos[numero];
+
+      actualizarContador();
 
       if (petalosRestantes === 0) {
         setTimeout(() => {
-          caja.innerHTML = "El girasol se quedó sin pétalos, pero el mensaje más importante queda en el centro: eres especial, valiosa y mereces ser feliz 🌻💛";
-          contador.innerHTML = "Todos los pétalos fueron descubiertos 💛";
+          caja.innerHTML = CONFIGURACION_DEL_REGALO.mensajeFinal;
+          document.getElementById("contador").innerHTML = CONFIGURACION_DEL_REGALO.contadorFinal;
         }, 700);
       }
+    }
+
+    function actualizarContador() {
+      document.getElementById("contador").innerHTML =
+        CONFIGURACION_DEL_REGALO.textoContador + " " + petalosRestantes;
     }
   </script>
 
