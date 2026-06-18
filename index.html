@@ -1,0 +1,586 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Una Flor para Ti</title>
+
+  <style>
+    * {
+      box-sizing: border-box;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: "Segoe UI", Arial, sans-serif;
+      overflow: hidden;
+      color: #fff;
+      text-align: center;
+      background:
+        radial-gradient(circle at 20% 10%, rgba(255,255,255,0.25), transparent 22%),
+        radial-gradient(circle at 80% 18%, rgba(255,120,170,0.22), transparent 32%),
+        linear-gradient(135deg, #140018 0%, #3b0b35 45%, #8b123f 100%);
+    }
+
+    .estrellas {
+      position: fixed;
+      inset: 0;
+      z-index: 0;
+      opacity: 0.45;
+      background-image:
+        radial-gradient(circle, rgba(255,255,255,0.9) 1px, transparent 1.5px),
+        radial-gradient(circle, rgba(255,255,255,0.5) 1px, transparent 1.5px);
+      background-size: 55px 55px, 92px 92px;
+      background-position: 0 0, 35px 25px;
+      animation: moverEstrellas 18s linear infinite;
+    }
+
+    .bruma {
+      position: fixed;
+      inset: -80px;
+      z-index: 0;
+      background:
+        radial-gradient(circle at 20% 80%, rgba(255, 64, 129, 0.22), transparent 35%),
+        radial-gradient(circle at 80% 70%, rgba(255, 193, 7, 0.12), transparent 35%),
+        radial-gradient(circle at 50% 10%, rgba(210, 80, 255, 0.22), transparent 40%);
+      filter: blur(12px);
+      animation: bruma 8s ease-in-out infinite alternate;
+    }
+
+    .luna {
+      position: fixed;
+      top: 35px;
+      right: 35px;
+      width: 90px;
+      height: 90px;
+      border-radius: 50%;
+      background: radial-gradient(circle at 35% 35%, #fff8db, #ffd7a3 58%, #c98965);
+      box-shadow: 0 0 45px rgba(255, 220, 175, 0.8);
+      z-index: 1;
+    }
+
+    .inicio {
+      position: fixed;
+      inset: 0;
+      z-index: 30;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px;
+      background:
+        radial-gradient(circle at top, rgba(255,255,255,0.22), transparent 35%),
+        linear-gradient(135deg, #190018, #6b103d, #e03c75);
+      transition: opacity 0.8s ease, transform 0.8s ease;
+    }
+
+    .inicio.ocultar {
+      opacity: 0;
+      transform: scale(1.05);
+      pointer-events: none;
+    }
+
+    .caja-inicio,
+    .tarjeta {
+      width: 100%;
+      max-width: 510px;
+      padding: 34px 24px;
+      border-radius: 36px;
+      background: rgba(255, 255, 255, 0.14);
+      border: 1px solid rgba(255, 255, 255, 0.36);
+      backdrop-filter: blur(18px);
+      box-shadow:
+        0 30px 85px rgba(0,0,0,0.48),
+        inset 0 0 28px rgba(255,255,255,0.12);
+    }
+
+    .caja-inicio h1 {
+      margin: 0 0 14px;
+      font-size: 38px;
+      text-shadow: 0 4px 18px rgba(0,0,0,0.4);
+    }
+
+    .caja-inicio p {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.6;
+      color: #ffe5f1;
+    }
+
+    button {
+      margin-top: 25px;
+      padding: 16px 36px;
+      border: none;
+      border-radius: 40px;
+      background: linear-gradient(135deg, #ffffff, #ffd4e9);
+      color: #a01459;
+      font-size: 18px;
+      font-weight: 900;
+      cursor: pointer;
+      box-shadow: 0 16px 35px rgba(0,0,0,0.35);
+      transition: 0.3s;
+    }
+
+    button:hover {
+      transform: translateY(-3px) scale(1.04);
+      box-shadow: 0 20px 45px rgba(0,0,0,0.45);
+    }
+
+    .contenido {
+      min-height: 100vh;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 18px;
+      position: relative;
+      z-index: 10;
+      animation: aparecer 1s ease forwards;
+    }
+
+    .tarjeta {
+      position: relative;
+      overflow: hidden;
+    }
+
+    .tarjeta::before {
+      content: "";
+      position: absolute;
+      inset: -80px;
+      z-index: -1;
+      background:
+        radial-gradient(circle at 20% 15%, rgba(255,255,255,0.22), transparent 25%),
+        radial-gradient(circle at 80% 5%, rgba(255,190,215,0.32), transparent 30%),
+        radial-gradient(circle at 50% 100%, rgba(255,255,255,0.13), transparent 35%);
+    }
+
+    h2 {
+      margin: 0 0 6px;
+      font-size: 35px;
+      text-shadow: 0 4px 16px rgba(0,0,0,0.42);
+    }
+
+    .subtitulo {
+      margin: 0 0 6px;
+      color: #ffe2ef;
+      font-size: 16px;
+    }
+
+    .instruccion {
+      margin: 8px 0 0;
+      color: #ffd6e9;
+      font-size: 14px;
+      opacity: 0.95;
+    }
+
+    .escena-rosa {
+      width: 340px;
+      height: 400px;
+      margin: 0 auto;
+      position: relative;
+    }
+
+    .rosa {
+      position: absolute;
+      width: 250px;
+      height: 250px;
+      left: 45px;
+      top: 15px;
+      filter: drop-shadow(0 24px 18px rgba(0,0,0,0.35));
+      animation: respirar 3.5s infinite ease-in-out;
+    }
+
+    .petalo {
+      position: absolute;
+      width: 92px;
+      height: 142px;
+      left: 79px;
+      top: 0;
+      border: none;
+      cursor: pointer;
+      border-radius: 90% 90% 42% 42%;
+      transform-origin: 46px 116px;
+      background:
+        radial-gradient(circle at 35% 18%, rgba(255,255,255,0.92), transparent 24%),
+        linear-gradient(180deg, #ffd3e4 0%, #ff4b8b 45%, #a5003d 100%);
+      box-shadow:
+        inset 0 10px 17px rgba(255,255,255,0.35),
+        0 8px 14px rgba(0,0,0,0.2);
+      transition: transform 0.25s ease, filter 0.25s ease;
+      color: transparent;
+      font-size: 0;
+      padding: 0;
+    }
+
+    .petalo:hover {
+      filter: brightness(1.15);
+    }
+
+    .petalo.activo {
+      filter: brightness(1.28) drop-shadow(0 0 12px rgba(255,255,255,0.8));
+    }
+
+    .petalo:nth-child(1) { transform: rotate(0deg); }
+    .petalo:nth-child(2) { transform: rotate(30deg); }
+    .petalo:nth-child(3) { transform: rotate(60deg); }
+    .petalo:nth-child(4) { transform: rotate(90deg); }
+    .petalo:nth-child(5) { transform: rotate(120deg); }
+    .petalo:nth-child(6) { transform: rotate(150deg); }
+    .petalo:nth-child(7) { transform: rotate(180deg); }
+    .petalo:nth-child(8) { transform: rotate(210deg); }
+    .petalo:nth-child(9) { transform: rotate(240deg); }
+    .petalo:nth-child(10) { transform: rotate(270deg); }
+    .petalo:nth-child(11) { transform: rotate(300deg); }
+    .petalo:nth-child(12) { transform: rotate(330deg); }
+
+    .centro {
+      position: absolute;
+      width: 78px;
+      height: 78px;
+      left: 86px;
+      top: 103px;
+      border-radius: 50%;
+      z-index: 8;
+      background:
+        radial-gradient(circle at 35% 35%, #fff3a2, #ffad33 60%, #9b5100 100%);
+      box-shadow:
+        0 0 30px rgba(255, 210, 90, 0.95),
+        inset 0 0 12px rgba(255,255,255,0.45);
+      pointer-events: none;
+    }
+
+    .centro::after {
+      content: "💌";
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      font-size: 28px;
+    }
+
+    .tallo {
+      position: absolute;
+      width: 15px;
+      height: 175px;
+      left: 163px;
+      top: 228px;
+      border-radius: 20px;
+      background: linear-gradient(180deg, #7df08b, #168b34);
+      box-shadow: inset 3px 0 6px rgba(255,255,255,0.32);
+      z-index: -1;
+    }
+
+    .hoja {
+      position: absolute;
+      width: 95px;
+      height: 48px;
+      top: 310px;
+      background:
+        radial-gradient(circle at 35% 35%, rgba(255,255,255,0.44), transparent 25%),
+        linear-gradient(135deg, #86f58b, #168b34);
+      border-radius: 90px 0 90px 0;
+      box-shadow: 0 10px 18px rgba(0,0,0,0.22);
+    }
+
+    .hoja.izq {
+      left: 70px;
+      transform: rotate(-28deg);
+    }
+
+    .hoja.der {
+      right: 68px;
+      transform: rotate(205deg);
+    }
+
+    .mensaje-box {
+      min-height: 88px;
+      margin: 4px auto 8px;
+      padding: 16px 16px;
+      max-width: 410px;
+      border-radius: 24px;
+      background: rgba(255,255,255,0.17);
+      border: 1px solid rgba(255,255,255,0.30);
+      box-shadow: inset 0 0 20px rgba(255,255,255,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff2f8;
+      font-size: 18px;
+      line-height: 1.45;
+      font-weight: 700;
+      text-shadow: 0 3px 12px rgba(0,0,0,0.35);
+      animation: suave 0.4s ease;
+    }
+
+    .contador {
+      font-size: 13px;
+      color: #ffd6e8;
+      opacity: 0.9;
+    }
+
+    .nota {
+      margin-top: 10px;
+      color: #ffd6ea;
+      opacity: 0.85;
+      font-size: 13px;
+    }
+
+    .flotante {
+      position: fixed;
+      bottom: -60px;
+      z-index: 3;
+      font-size: 30px;
+      animation: subir 9s linear infinite;
+      opacity: 0.86;
+      pointer-events: none;
+    }
+
+    .petalo-caida {
+      position: fixed;
+      top: -60px;
+      z-index: 4;
+      font-size: 30px;
+      animation: caer 10s linear infinite;
+      opacity: 0.86;
+      pointer-events: none;
+    }
+
+    .particula {
+      position: fixed;
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.9);
+      box-shadow: 0 0 14px rgba(255,255,255,0.95);
+      z-index: 2;
+      animation: chispa 6s linear infinite;
+    }
+
+    #player {
+      position: absolute;
+      left: -9999px;
+      width: 1px;
+      height: 1px;
+      opacity: 0.01;
+    }
+
+    @keyframes aparecer {
+      from { opacity: 0; transform: translateY(18px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    @keyframes suave {
+      from { opacity: 0; transform: translateY(8px) scale(0.98); }
+      to { opacity: 1; transform: translateY(0) scale(1); }
+    }
+
+    @keyframes respirar {
+      0%, 100% { transform: scale(1) rotate(0deg); }
+      50% { transform: scale(1.05) rotate(2deg); }
+    }
+
+    @keyframes subir {
+      0% { transform: translateY(0) rotate(0deg); opacity: 0; }
+      15% { opacity: 1; }
+      100% { transform: translateY(-115vh) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes caer {
+      0% { transform: translateY(-10vh) translateX(0) rotate(0deg); opacity: 0; }
+      15% { opacity: 1; }
+      100% { transform: translateY(112vh) translateX(70px) rotate(360deg); opacity: 0; }
+    }
+
+    @keyframes chispa {
+      0% { transform: translateY(105vh) scale(0.6); opacity: 0; }
+      20% { opacity: 1; }
+      100% { transform: translateY(-10vh) scale(1.2); opacity: 0; }
+    }
+
+    @keyframes moverEstrellas {
+      from { background-position: 0 0, 35px 25px; }
+      to { background-position: 120px 120px, 185px 145px; }
+    }
+
+    @keyframes bruma {
+      from { transform: scale(1) rotate(0deg); opacity: 0.75; }
+      to { transform: scale(1.08) rotate(3deg); opacity: 1; }
+    }
+
+    @media (max-width: 480px) {
+      .luna {
+        width: 70px;
+        height: 70px;
+        top: 24px;
+        right: 20px;
+      }
+
+      .caja-inicio,
+      .tarjeta {
+        max-width: 94vw;
+        padding: 27px 16px;
+      }
+
+      h2 {
+        font-size: 30px;
+      }
+
+      .escena-rosa {
+        transform: scale(0.88);
+        margin-top: -20px;
+        margin-bottom: -42px;
+      }
+
+      .mensaje-box {
+        font-size: 16px;
+        min-height: 82px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="estrellas"></div>
+  <div class="bruma"></div>
+  <div class="luna"></div>
+
+  <div class="particula" style="left: 10%; animation-delay: 0s;"></div>
+  <div class="particula" style="left: 25%; animation-delay: 2s;"></div>
+  <div class="particula" style="left: 42%; animation-delay: 4s;"></div>
+  <div class="particula" style="left: 61%; animation-delay: 1s;"></div>
+  <div class="particula" style="left: 78%; animation-delay: 3s;"></div>
+  <div class="particula" style="left: 92%; animation-delay: 5s;"></div>
+
+  <div class="inicio" id="inicio">
+    <div class="caja-inicio">
+      <h1>🌹 Tienes una rosa especial 🌹</h1>
+      <p>
+        Cada pétalo guarda un mensaje para ti.
+        Abre el regalo, toca los pétalos y deja que la música acompañe este detalle.
+      </p>
+      <button onclick="abrirRegalo()">Abrir regalo</button>
+    </div>
+  </div>
+
+  <main class="contenido" id="contenido">
+    <section class="tarjeta">
+      <h2>🌹 Una Flor para Ti 🌹</h2>
+      <p class="subtitulo">Toca cada pétalo y descubre un mensaje</p>
+
+      <div class="escena-rosa">
+        <div class="rosa" id="rosa">
+          <button class="petalo" onclick="mostrarMensaje(0, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(1, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(2, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(3, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(4, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(5, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(6, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(7, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(8, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(9, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(10, this)"></button>
+          <button class="petalo" onclick="mostrarMensaje(11, this)"></button>
+          <div class="centro"></div>
+        </div>
+
+        <div class="tallo"></div>
+        <div class="hoja izq"></div>
+        <div class="hoja der"></div>
+      </div>
+
+      <div class="mensaje-box" id="mensajeBox">
+        Toca un pétalo de la rosa para abrir un mensaje 💌
+      </div>
+
+      <div class="contador" id="contador">
+        Mensajes descubiertos: 0 de 12
+      </div>
+
+      <p class="nota">
+        La música empieza después de tocar “Abrir regalo”.
+      </p>
+
+      <div id="player"></div>
+    </section>
+  </main>
+
+  <div class="petalo-caida" style="left: 7%; animation-delay: 0s;">🌸</div>
+  <div class="petalo-caida" style="left: 20%; animation-delay: 3s;">🌺</div>
+  <div class="petalo-caida" style="left: 35%; animation-delay: 1s;">🌸</div>
+  <div class="petalo-caida" style="left: 55%; animation-delay: 4s;">🌺</div>
+  <div class="petalo-caida" style="left: 72%; animation-delay: 2s;">🌸</div>
+  <div class="petalo-caida" style="left: 90%; animation-delay: 5s;">🌺</div>
+
+  <div class="flotante" style="left: 12%; animation-delay: 0s;">💖</div>
+  <div class="flotante" style="left: 28%; animation-delay: 2s;">✨</div>
+  <div class="flotante" style="left: 46%; animation-delay: 4s;">🌹</div>
+  <div class="flotante" style="left: 65%; animation-delay: 1s;">💗</div>
+  <div class="flotante" style="left: 82%; animation-delay: 3s;">💕</div>
+
+  <script>
+    const mensajes = [
+      "Eres una persona muy especial, de esas que iluminan sin darse cuenta 💖",
+      "Gracias por existir y por dejar una huella bonita en este mundo 🌹",
+      "Nunca olvides que mereces amor, paz y momentos hermosos ✨",
+      "Tu sonrisa puede cambiar un día completo, incluso sin darte cuenta 😊",
+      "Que la vida te devuelva todo lo bonito que das con el corazón 💌",
+      "Eres fuerte, valiosa y capaz de superar cualquier momento difícil 🌙",
+      "Este pétalo guarda un abrazo sincero, de esos que llegan al alma 🤍",
+      "No te rindas: incluso las flores más bellas también crecieron bajo lluvia 🌧️🌸",
+      "Ojalá hoy recuerdes lo mucho que vales y lo importante que eres 💗",
+      "Hay personas que son como flores: hacen más bonito el lugar donde están 🌺",
+      "Que esta canción y esta rosa te acompañen con mucho cariño 🎶",
+      "Último pétalo: gracias por ser tú, única, bonita y especial 🌹✨"
+    ];
+
+    const descubiertos = new Set();
+
+    function abrirRegalo() {
+      const inicio = document.getElementById("inicio");
+      const contenido = document.getElementById("contenido");
+
+      inicio.classList.add("ocultar");
+
+      setTimeout(() => {
+        inicio.style.display = "none";
+        contenido.style.display = "flex";
+      }, 700);
+
+      document.getElementById("player").innerHTML = `
+        <iframe
+          width="1"
+          height="1"
+          src="https://www.youtube.com/embed/pdKILFIqpUE?autoplay=1&loop=1&playlist=pdKILFIqpUE"
+          title="Juanes - Una Flor"
+          frameborder="0"
+          allow="autoplay; encrypted-media">
+        </iframe>
+      `;
+    }
+
+    function mostrarMensaje(numero, petalo) {
+      const caja = document.getElementById("mensajeBox");
+      const contador = document.getElementById("contador");
+
+      caja.style.animation = "none";
+      void caja.offsetWidth;
+      caja.style.animation = "suave 0.4s ease";
+
+      caja.innerHTML = mensajes[numero];
+
+      petalo.classList.add("activo");
+      descubiertos.add(numero);
+
+      contador.innerHTML = "Mensajes descubiertos: " + descubiertos.size + " de 12";
+
+      if (descubiertos.size === 12) {
+        setTimeout(() => {
+          caja.innerHTML = "Descubriste todos los pétalos. Esta rosa completa es para ti 🌹💖";
+        }, 600);
+      }
+    }
+  </script>
+
+</body>
+</html>
